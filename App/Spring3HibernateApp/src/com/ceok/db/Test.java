@@ -9,10 +9,10 @@ public class Test {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
 		DBOperation dbOperation = new DBOperation();
-		List<Map<String, Object>> data = dbOperation.select("select state from subscriber", null);
+		List<Map<String, Object>> data = dbOperation.select("select usename from users_details", null);
 
 		if (data.size() > 0) {
-			String name = getString(data.get(0).get("STATE"));
+			String name = getString(data.get(0).get("username"));
 			
 		}
 	}

@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -36,8 +37,9 @@ public class Log4jLogger implements ILogger {
 		RollingFileAppender appender = null;
 
 		try {
-			File logFile = new File("/tmp/ServerManager.log");
-
+			//File logFile = new File("/tmp/ServerManager.log");
+			File logFile = new File("ServerManager.log");
+			
 			if (!logFile.isFile()) {
 				FileUtils.touch(logFile);
 			}
@@ -45,8 +47,7 @@ public class Log4jLogger implements ILogger {
 			fileName = logFile.getAbsolutePath();
 			System.out.println("Logfile :" + fileName);
 			consolAppender = new ConsoleAppender(layout);
-			// appender = new FileAppender(layout,fileName,true);
-			appender = new RollingFileAppender();
+			appender = new RollingFileAppender(layout,fileName,true);
 			appender.setLayout(layout);
 			appender.setFile(fileName);
 			appender.setAppend(true);

@@ -60,7 +60,7 @@ public class DBOperation implements IDBOperation {
 			psForselect.setQueryTimeout(dbQueryTimeout);
 
 			Logger.logInfo(MODULE, "Entered execute method of " + getClass().getName());
-			//Logger.logDebug(MODULE, "Select :" + psForselect.toString().split(":", 2)[1]);
+			Logger.logDebug(MODULE, "Select :" + psForselect.toString().split(":")[1]);
 
 			long queryExecutionTime = System.currentTimeMillis();
 			rsForselect = psForselect.executeQuery();
