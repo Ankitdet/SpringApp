@@ -1,7 +1,6 @@
 /**
- * 
+ * @author Ankit Detroja
  */
-
 package com.ceok.configuration;
 
 import java.io.File;
@@ -10,13 +9,29 @@ import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
+
+/** Create Iterface for Ilogger **/
+interface ILogger {
+	
+	public void error(String strMessage);
+    
+    public void debug(String strMessage);
+    
+    public void info(String strMessage);
+    
+    public void warn(String strMessage);
+
+    public void fatal(String strMessage);
+    
+    public void trace(String strMessage);
+}
+
 
 public class Log4jLogger implements ILogger {
 	public static Logger logger = null;
@@ -38,7 +53,7 @@ public class Log4jLogger implements ILogger {
 
 		try {
 			//File logFile = new File("/tmp/ServerManager.log");
-			File logFile = new File("ServerManager.log");
+			File logFile = new File("Server-Management.log");
 			
 			if (!logFile.isFile()) {
 				FileUtils.touch(logFile);

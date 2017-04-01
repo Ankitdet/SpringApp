@@ -5,7 +5,7 @@ import java.util.List;
 import com.ceok.model.Login;
 
 /**
- * @author Dinesh Rajput
+ * @author ankit detroja
  *
  */
 public interface LoginDao {

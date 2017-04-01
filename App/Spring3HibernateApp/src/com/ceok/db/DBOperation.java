@@ -14,14 +14,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.ceok.configuration.Logger;
 
+@Component
 public class DBOperation implements IDBOperation {
 	
 	private Connection conn = null;	
 	private static final String	MODULE = "DB-OPERATION";
-	private int dbQueryTimeout	= 60000;	// seconds
-
+	private int dbQueryTimeout	= 60000;
+	private static final String SELECT = "SelectQuery>>[";
+	private static final String UPDATE = "UpdateQuery>>[";
+	private static final String DELETE = "DeleteQuery>>[";
+	private static final String INSERT = "InsertQuery>>[";
+	
 	public DBOperation() throws FileNotFoundException, IOException {
 	    	conn = ConnectionProvider.getConnection();
 	}
@@ -60,7 +67,7 @@ public class DBOperation implements IDBOperation {
 			psForselect.setQueryTimeout(dbQueryTimeout);
 
 			Logger.logInfo(MODULE, "Entered execute method of " + getClass().getName());
-			Logger.logDebug(MODULE, "Select :" + psForselect.toString().split(":")[1]);
+			Logger.logDebug(MODULE, SELECT + psForselect.toString().split(":")[1] + "]");
 
 			long queryExecutionTime = System.currentTimeMillis();
 			rsForselect = psForselect.executeQuery();
@@ -124,8 +131,7 @@ public class DBOperation implements IDBOperation {
 				}
 			}
 			psForInsert.setQueryTimeout(dbQueryTimeout);
-
-			Logger.logDebug(MODULE, "Insert :" + psForInsert.toString().split(":", 2)[1]);
+			Logger.logDebug(MODULE, INSERT + psForInsert.toString().split(":", 2)[1] +"]");
 
 			long queryExecutionTime = System.currentTimeMillis();
 			uffectedRows = psForInsert.executeUpdate();
@@ -176,7 +182,7 @@ public class DBOperation implements IDBOperation {
 				}
 			}
 			psForUpdate.setQueryTimeout(dbQueryTimeout);
-			Logger.logDebug(MODULE, "Update :" + psForUpdate.toString().split(":", 2)[1]);
+			Logger.logDebug(MODULE, UPDATE  + psForUpdate.toString().split(":", 2)[1] +"]");
 
 			long queryExecutionTime = System.currentTimeMillis();
 			uffectedRows = psForUpdate.executeUpdate();
@@ -224,7 +230,7 @@ public int delete(String deleteQuery, Object[] objects) {
 				}
 			}
 			psForDelete.setQueryTimeout(dbQueryTimeout);
-			Logger.logDebug(MODULE, "Delete :" + psForDelete.toString().split(":", 2)[1]);
+			Logger.logDebug(MODULE, DELETE + psForDelete.toString().split(":", 2)[1] + "]");
 
 			long queryExecutionTime = System.currentTimeMillis();
 			uffectedRows = psForDelete.executeUpdate();
